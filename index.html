@@ -336,8 +336,8 @@ Checksummed Ethereum Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)<
       <ul>
         <li><strong>BIP-39:</strong> Encodes 128–256 bits of CSPRNG entropy into 12–24 dictionary words with a built-in checksum. Applies <code>PBKDF2</code> with HMAC-SHA512 over 2,048 rounds to stretch the phrase into a 512-bit binary seed.</li>
         <li><strong>BIP-32 & BIP-44:</strong> Creates a Hierarchical Deterministic (HD) key tree allowing infinite child key derivations from a single seed. Uses the Ethereum mainnet path: <code>m / 44' / 60' / 0' / 0 / 0</code>.</li>
-        <li><strong>secp256k1:</strong> Koblitz curve over $\mathbb{F}_p$ ($y^2 \equiv x^3 + 7 \pmod p$) mapping private key $k$ to public key $Q = k \cdot G$ via the intractable Elliptic Curve Discrete Logarithm Problem (ECDLP).</li>
-        <li><strong>Keccak-256:</strong> Evaluates the 64-byte uncompressed $(X, Y)$ coordinate point, stripping the first 12 bytes and retaining the lower 20 bytes (160 bits).</li>
+        <li><strong>secp256k1:</strong> Koblitz curve over prime field F_p (y^2 = x^3 + 7 mod p) mapping private key k to public key Q = k · G via the intractable Elliptic Curve Discrete Logarithm Problem (ECDLP).</li>
+        <li><strong>Keccak-256:</strong> Evaluates the 64-byte uncompressed (X, Y) coordinate point, stripping the first 12 bytes and retaining the lower 20 bytes (160 bits).</li>
         <li><strong>EIP-55:</strong> Mixed-case capitalization checksum encoding to detect accidental human transcription mistakes without altering payload length.</li>
       </ul>
 
@@ -403,15 +403,15 @@ Checksummed Ethereum Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)<
       <h2>4. Multi-Primitive Security Trade-Offs</h2>
       <ul>
         <li><strong>Usability vs Key Management:</strong> Humans cannot reliably remember 256-bit raw hex keys. BIP-39 and BIP-44 allow a single mnemonic phrase to manage an entire account tree.</li>
-        <li><strong>Authentication vs Storage:</strong> Digital signatures require public keys with elliptic group structures ($Q = kG$), but storing 64 bytes per account would bloat the Ethereum state trie. Keccak-256 compresses this to 20 bytes, saving 68% of storage.</li>
+        <li><strong>Authentication vs Storage:</strong> Digital signatures require public keys with elliptic group structures, but storing 64 bytes per account would bloat the Ethereum state trie. Keccak-256 compresses this to 20 bytes, saving 68% of storage.</li>
         <li><strong>Fault Tolerance:</strong> Blockchain transactions are irreversible. EIP-55 introduces client-side error detection without requiring additional byte overhead on-chain.</li>
       </ul>
 
       <h2>5. Statistical Analysis & Security Bounds</h2>
       <ul>
-        <li><strong>Strict Avalanche Criterion (SAC):</strong> The outputs of HMAC-SHA512 and Keccak-256 exhibit independent bit-flip probabilities ($P \approx 0.5$), ensuring pseudo-random output distributions across the derived keys.</li>
-        <li><strong>Birthday Paradox & Collision Resistance:</strong> Truncating Keccak-256 to 160 bits yields a collision resistance bound of $2^{80}$ operations. In distributed ledger architecture, $2^{80}$ operations remains computationally unfeasible while saving storage.</li>
-        <li><strong>EIP-55 Typo Detection Reliability:</strong> In an address with $m$ alphabetic characters, each character acts as an independent binomial trial. For an address containing 15 letters:
+        <li><strong>Strict Avalanche Criterion (SAC):</strong> The outputs of HMAC-SHA512 and Keccak-256 exhibit independent bit-flip probabilities (P &approx; 0.5), ensuring pseudo-random output distributions across the derived keys.</li>
+        <li><strong>Birthday Paradox & Collision Resistance:</strong> Truncating Keccak-256 to 160 bits yields a collision resistance bound of 2^80 operations. In distributed ledger architecture, 2^80 operations remains computationally unfeasible while saving storage.</li>
+        <li><strong>EIP-55 Typo Detection Reliability:</strong> In an address with m alphabetic characters, each character acts as an independent binomial trial. For an address containing 15 letters:
           <div class="pipeline-box" style="margin-top:10px;">P(undetected typo) &approx; 2^(-15) &approx; 0.003% &implies; 99.997% Error Detection Rate</div>
         </li>
       </ul>
