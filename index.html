@@ -3,43 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Wallet Seed to Ethereum Address — Statistics</title>
+  <title>From Wallet Seed to Ethereum Address — Stephanie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy-bg: #0d1b2a;
-      --navy-deep: #09131f;
-      --navy-hero: #112238;
-      --cyan-accent: #38bdf8;
-      --pink-accent: #f43f5e;
+      --bg-dark: #120914;
+      --bg-header: #1f0d22;
+      --card-bg: #1c0e20;
+      --card-inner: #26132b;
+      --pink-neon: #ff2a85;
+      --pink-hot: #f43f5e;
       --pink-soft: #fb7185;
+      --pink-blush: #f472b6;
       --pink-light: #fbcfe8;
-      --pink-bg: rgba(244, 63, 94, 0.08);
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --code-bg: #0f172a;
+      --pink-pale: #fff1f2;
+      --pink-glow: rgba(255, 42, 133, 0.25);
+      --border-pink: rgba(244, 63, 94, 0.22);
+      --text-main: #fdf2f8;
+      --text-muted: #d8b4e2;
+      --code-bg: #0b040c;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.65;
     }
 
     /* TOP NAVBAR */
     .navbar {
-      background: var(--navy-deep);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 16px 32px;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--border-pink);
+      padding: 18px 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
     }
 
     .brand {
@@ -50,16 +57,17 @@
     }
 
     .brand-logo {
-      background: #38bdf8;
-      color: #09131f;
+      background: linear-gradient(135deg, #ff2a85 0%, #ec4899 100%);
+      color: #ffffff;
       font-weight: 800;
-      font-size: 1.1rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      font-size: 1.15rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 16px var(--pink-glow);
     }
 
     .brand-title {
@@ -69,216 +77,295 @@
       letter-spacing: -0.01em;
     }
 
+    .brand-title span {
+      color: var(--pink-blush);
+    }
+
     .nav-links {
       display: flex;
       gap: 24px;
     }
 
     .nav-links a {
-      color: #94a3b8;
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.2s;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
     }
 
     .nav-links a:hover {
-      color: #ffffff;
+      color: var(--pink-neon);
+      text-shadow: 0 0 10px var(--pink-glow);
     }
 
     /* HERO HEADER */
     .hero {
-      background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-hero) 100%);
-      color: #ffffff;
-      padding: 60px 32px 80px 32px;
+      background: linear-gradient(180deg, var(--bg-header) 0%, var(--bg-dark) 100%);
+      padding: 65px 32px 75px 32px;
+      border-bottom: 1px solid var(--border-pink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: 10%;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(255, 42, 133, 0.18) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
     }
 
     .hero-container {
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto;
+      position: relative;
     }
 
     .back-link {
       display: inline-block;
-      color: #94a3b8;
-      font-size: 0.9rem;
+      color: var(--pink-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
       text-decoration: none;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       transition: color 0.2s;
     }
 
     .back-link:hover {
-      color: #38bdf8;
+      color: var(--pink-neon);
     }
 
     .homework-tag {
-      color: var(--cyan-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 42, 133, 0.12);
+      border: 1px solid var(--pink-neon);
+      color: #ffa6cf;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 12px var(--pink-glow);
     }
 
     .hero h1 {
-      font-size: 2.75rem;
+      font-size: 2.85rem;
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.03em;
+      color: #ffffff;
       margin-bottom: 12px;
     }
 
+    .hero h1 span {
+      background: linear-gradient(135deg, #ff65a3 0%, #ff2a85 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 24px var(--pink-glow);
+    }
+
     .hero-subtitle {
-      color: var(--cyan-accent);
+      color: var(--pink-blush);
       font-size: 1.25rem;
-      font-weight: 500;
-      margin-bottom: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
     }
 
     .hero-desc {
-      color: #cbd5e1;
-      font-size: 1.05rem;
-      max-width: 680px;
-      line-height: 1.6;
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      max-width: 720px;
+      line-height: 1.65;
     }
 
     /* CONTENT BODY */
     .content-area {
-      max-width: 860px;
-      margin: -30px auto 60px auto;
+      max-width: 900px;
+      margin: -24px auto 80px auto;
       padding: 0 20px;
     }
 
     .article-card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-pink);
       padding: 48px;
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
+      .hero h1 { font-size: 2.1rem; }
       .article-card { padding: 24px; }
       .navbar { padding: 14px 20px; }
     }
 
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 700;
-      color: #0f172a;
-      margin-top: 36px;
+      color: #ffffff;
+      margin-top: 40px;
       margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--pink-light);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-pink);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     h2::before {
-      content: "";
-      display: inline-block;
-      width: 4px;
-      height: 20px;
-      background: var(--pink-accent);
-      border-radius: 2px;
+      content: "🌸";
+      font-size: 1.1rem;
     }
 
     h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #1e293b;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pink-light);
       margin-top: 24px;
       margin-bottom: 8px;
     }
 
     p {
-      color: #334155;
+      color: var(--text-muted);
       margin-bottom: 14px;
-      font-size: 1rem;
+      font-size: 0.98rem;
     }
 
     /* PIPELINE DIAGRAM */
     .pipeline-box {
       background: var(--code-bg);
-      color: #e2e8f0;
-      border-radius: 12px;
+      color: #fbcfe8;
+      border-radius: 14px;
       padding: 24px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
       line-height: 1.6;
       overflow-x: auto;
-      margin: 20px 0;
-      border-left: 4px solid var(--pink-accent);
+      margin: 22px 0;
+      border: 1px solid var(--border-pink);
+      border-left: 4px solid var(--pink-neon);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
 
     .pipeline-box .arrow {
-      color: var(--pink-accent);
+      color: var(--pink-neon);
       font-weight: bold;
     }
 
     .pipeline-box .comment {
-      color: #64748b;
+      color: #8b5cf6;
     }
 
     /* TABLES */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 0.95rem;
+      margin: 22px 0;
+      font-size: 0.92rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-pink);
     }
 
     th, td {
       padding: 12px 16px;
       text-align: left;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid rgba(244, 63, 94, 0.12);
     }
 
     th {
-      background: #f1f5f9;
-      color: #0f172a;
-      font-weight: 600;
+      background: rgba(255, 42, 133, 0.12);
+      color: #ffa6cf;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    td {
+      background: var(--card-inner);
+      color: var(--text-muted);
+    }
+
+    td strong {
+      color: #ffffff;
     }
 
     /* TIMELINE */
     .timeline {
-      margin: 20px 0;
+      margin: 22px 0;
+      background: var(--card-inner);
+      border-radius: 14px;
+      border: 1px solid var(--border-pink);
+      padding: 20px 24px;
     }
 
     .timeline-item {
       display: flex;
       gap: 16px;
       margin-bottom: 14px;
+      font-size: 0.94rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
     }
 
     .timeline-year {
-      min-width: 65px;
+      min-width: 60px;
       font-family: 'JetBrains Mono', monospace;
-      font-weight: 700;
-      color: var(--pink-accent);
+      font-weight: 800;
+      color: var(--pink-neon);
     }
 
     .highlight-box {
-      background: #fff1f2;
-      border-left: 4px solid var(--pink-accent);
-      padding: 16px 20px;
-      border-radius: 0 8px 8px 0;
-      margin: 20px 0;
-      color: #881337;
-      font-size: 0.95rem;
+      background: rgba(255, 42, 133, 0.08);
+      border-left: 4px solid var(--pink-neon);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 22px;
+      margin: 22px 0;
+      color: var(--pink-light);
+      font-size: 0.94rem;
+      border-top: 1px solid var(--border-pink);
+      border-right: 1px solid var(--border-pink);
+      border-bottom: 1px solid var(--border-pink);
+    }
+
+    .highlight-box strong {
+      color: #ffffff;
     }
 
     ul {
-      padding-left: 24px;
+      padding-left: 22px;
       margin-bottom: 16px;
     }
 
     li {
-      margin-bottom: 6px;
-      color: #334155;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    li strong {
+      color: var(--pink-light);
+    }
+
+    .badge-pill {
+      background: rgba(244, 63, 94, 0.18);
+      color: #ff99c8;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
     }
   </style>
 </head>
@@ -288,23 +375,24 @@
   <nav class="navbar">
     <a href="#" class="brand">
       <div class="brand-logo">S.</div>
-      <div class="brand-title">Statistics</div>
+      <div class="brand-title">Stephanie <span>&bull; Stats & Crypto</span></div>
     </a>
     <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Homeworks</a>
+      <a href="https://github.com/stefania-strauneanu/statistics-hmwk2">GitHub Repo</a>
+      <a href="#">Homework 02</a>
     </div>
   </nav>
 
   <!-- HERO SECTION -->
   <header class="hero">
     <div class="hero-container">
-      <a href="#" class="back-link">&larr; Back to Homeworks</a>
-      <div class="homework-tag">Homework 02</div>
-      <h1>From Wallet Seed to Ethereum Address</h1>
+      <a href="https://github.com/stefania-strauneanu/statistics-hmwk2" class="back-link">&larr; Back to Repository</a>
+      <br>
+      <div class="homework-tag">✨ Homework 02 &bull; Cybersecurity</div>
+      <h1>From Wallet Seed to <span>Ethereum Address</span></h1>
       <div class="hero-subtitle">Hashing, Key Derivation and Cryptographic Primitives</div>
       <p class="hero-desc">
-        An exploration of the cryptographic standards behind Ethereum wallets, from mnemonic phrases to checksummed addresses, including statistical properties.
+        A mathematical and architectural exploration of Ethereum's key derivation pipeline—from entropy and mnemonic phrases down to checksummed addresses and statistical error boundaries.
       </p>
     </div>
   </header>
@@ -315,7 +403,7 @@
 
       <h2>1. The Ethereum Wallet Cryptographic Pipeline</h2>
       <p>
-        The generation of an Ethereum address from an initial human-readable mnemonic seed follows a strictly deterministic, multi-stage derivation sequence:
+        Deriving an Ethereum account address from an initial human-readable mnemonic seed follows a strictly deterministic, multi-primitive pipeline:
       </p>
 
       <div class="pipeline-box">Mnemonic Phrase (12 or 24 English words)
@@ -323,22 +411,22 @@
 Binary Seed (512-bit master entropy)
   <span class="arrow">&darr;</span> <span class="comment">[BIP-32 / BIP-44: Child Key Derivation path m/44'/60'/0'/0/0]</span>
 Private Key (256-bit scalar integer, k)
-  <span class="arrow">&darr;</span> <span class="comment">[secp256k1: Scalar Multiplication Q = k &middot; G]</span>
+  <span class="arrow">&darr;</span> <span class="comment">[secp256k1: Scalar Point Multiplication Q = k &middot; G]</span>
 Public Key (64-byte uncompressed coordinate pair (X, Y), excluding '0x04' prefix)
   <span class="arrow">&darr;</span> <span class="comment">[Keccak-256: Cryptographic Sponge Hash Function]</span>
 Address Pre-image (256-bit hash digest)
   <span class="arrow">&darr;</span> <span class="comment">[Truncation: Discard top 12 bytes, retain lower 20 bytes (160 bits)]</span>
 Raw Ethereum Address (40-character hexadecimal string)
   <span class="arrow">&darr;</span> <span class="comment">[EIP-55: Mixed-Case Capitalization Checksum]</span>
-Checksummed Ethereum Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)</div>
+Final Checksummed Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)</div>
 
       <h3>Roles and Purposes of Core Standards</h3>
       <ul>
-        <li><strong>BIP-39:</strong> Encodes 128–256 bits of CSPRNG entropy into 12–24 dictionary words with a built-in checksum. Applies <code>PBKDF2</code> with HMAC-SHA512 over 2,048 rounds to stretch the phrase into a 512-bit binary seed.</li>
-        <li><strong>BIP-32 & BIP-44:</strong> Creates a Hierarchical Deterministic (HD) key tree allowing infinite child key derivations from a single seed. Uses the Ethereum mainnet path: <code>m / 44' / 60' / 0' / 0 / 0</code>.</li>
-        <li><strong>secp256k1:</strong> Koblitz curve over prime field F_p (y^2 = x^3 + 7 mod p) mapping private key k to public key Q = k · G via the intractable Elliptic Curve Discrete Logarithm Problem (ECDLP).</li>
-        <li><strong>Keccak-256:</strong> Evaluates the 64-byte uncompressed (X, Y) coordinate point, stripping the first 12 bytes and retaining the lower 20 bytes (160 bits).</li>
-        <li><strong>EIP-55:</strong> Mixed-case capitalization checksum encoding to detect accidental human transcription mistakes without altering payload length.</li>
+        <li><strong>BIP-39 (Entropy to Words):</strong> Maps 128–256 bits of CSPRNG entropy into 12–24 dictionary words with an appended checksum. Applies <span class="badge-pill">PBKDF2</span> (HMAC-SHA512, 2,048 rounds) with salt <span class="badge-pill">"mnemonic" + passphrase</span> to generate the 512-bit binary master seed.</li>
+        <li><strong>BIP-32 & BIP-44 (HD Wallet Tree):</strong> Derives an organized hierarchy of accounts deterministically from a single seed. Uses the Ethereum mainnet path: <span class="badge-pill">m / 44' / 60' / 0' / 0 / 0</span>.</li>
+        <li><strong>secp256k1 (Elliptic-Curve Groups):</strong> Koblitz curve over prime field $\mathbb{F}_p$ ($y^2 \equiv x^3 + 7 \pmod p$). Evaluates public point $Q = k \cdot G$. Reversing this requires solving the intractable <span class="badge-pill">ECDLP</span> (~128 bits of security).</li>
+        <li><strong>Keccak-256 (State Compression):</strong> Takes the 64-byte $(X, Y)$ coordinate representation, computes a 32-byte hash digest, and truncates the top 12 bytes, leaving a 20-byte (160-bit) account address.</li>
+        <li><strong>EIP-55 (In-Place Checksum):</strong> Reversible mixed-case capitalization scheme that catches manual typing or copy errors without adding byte overhead on-chain.</li>
       </ul>
 
       <h2>2. Conceptual & Architectural Distinctions</h2>
@@ -346,50 +434,50 @@ Checksummed Ethereum Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)<
         <thead>
           <tr>
             <th>Concept</th>
-            <th>Mechanism</th>
-            <th>Primary Purpose</th>
+            <th>Cryptographic Primitive</th>
+            <th>Primary Objective</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Key Generation</strong></td>
             <td>CSPRNG Hardware Entropy</td>
-            <td>Samples fresh, unguessable master seed bits.</td>
+            <td>Samples unguessable master seed entropy bits.</td>
           </tr>
           <tr>
             <td><strong>Key Derivation</strong></td>
-            <td>PBKDF2 / HMAC-SHA512</td>
-            <td>Expands master entropy deterministically into child keys.</td>
+            <td>PBKDF2 / HMAC-SHA512 PRF</td>
+            <td>Expands master seed into deterministic branch keys.</td>
           </tr>
           <tr>
             <td><strong>Public-Key Crypto</strong></td>
-            <td>secp256k1 Curve</td>
-            <td>Asymmetric authentication via digital signatures (ECDSA).</td>
+            <td>secp256k1 ECDLP Groups</td>
+            <td>Authorizes transactions via ECDSA digital signatures.</td>
           </tr>
           <tr>
             <td><strong>Hashing</strong></td>
-            <td>Keccak-256 Sponge</td>
-            <td>Compresses state data and destroys algebraic relations.</td>
+            <td>Keccak-256 Sponge Function</td>
+            <td>Compresses state data and eliminates algebraic group relations.</td>
           </tr>
           <tr>
             <td><strong>Encoding</strong></td>
-            <td>Hexadecimal (0x)</td>
-            <td>Translates binary byte arrays into readable strings.</td>
+            <td>Hexadecimal Representation</td>
+            <td>Formats raw byte arrays into readable strings.</td>
           </tr>
           <tr>
             <td><strong>Checksum</strong></td>
-            <td>EIP-55</td>
-            <td>Detects human copy/paste errors before broadcasting.</td>
+            <td>EIP-55 Capitalization</td>
+            <td>Catches user transcription typos before broadcasting.</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>3. Chronological Context & Historical Evolution</h2>
+      <h2>3. Chronological Context & Evolution</h2>
       <div class="timeline">
         <div class="timeline-item"><div class="timeline-year">1977</div><div><strong>RSA:</strong> Landmark asymmetric cryptography based on prime integer factorization.</div></div>
         <div class="timeline-item"><div class="timeline-year">2001</div><div><strong>SHA-2 (SHA-512):</strong> NIST standardization of iterative Merkle-Damg&aring;rd compression.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2012</div><div><strong>BIP-32:</strong> Pieter Wuille formalizes hierarchical deterministic derivation.</div></div>
-        <div class="timeline-item"><div class="timeline-year">2013</div><div><strong>BIP-39:</strong> Mnemonic phrases introduced for human-friendly wallet backups.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2012</div><div><strong>BIP-32:</strong> Pieter Wuille introduces hierarchical deterministic wallet trees.</div></div>
+        <div class="timeline-item"><div class="timeline-year">2013</div><div><strong>BIP-39:</strong> Standardized human-friendly mnemonic sentence backups.</div></div>
         <div class="timeline-item"><div class="timeline-year">2014</div><div><strong>BIP-44:</strong> Standardized multi-account derivation tree hierarchies.</div></div>
         <div class="timeline-item"><div class="timeline-year">2015</div><div><strong>SHA-3:</strong> NIST standardization of the Keccak sponge function family.</div></div>
         <div class="timeline-item"><div class="timeline-year">2016</div><div><strong>EIP-55:</strong> Vitalik Buterin introduces backward-compatible checksum encoding.</div></div>
@@ -397,21 +485,21 @@ Checksummed Ethereum Address (e.g., 0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed)<
 
       <div class="highlight-box">
         <strong>Technical Distinction: Keccak-256 vs NIST SHA3-256</strong><br>
-        Ethereum integrated Keccak in late 2014 before NIST completed the final specification in August 2015. During finalization, NIST changed the domain separation padding byte (<code>0x06</code> for SHA3-256 vs <code>0x01</code> in original Keccak). Consequently, Ethereum's Keccak-256 produces completely distinct hash digests from NIST SHA3-256.
+        Ethereum integrated Keccak in late 2014 before NIST completed the final specification in August 2015. During finalization, NIST changed the domain separation padding byte (<span class="badge-pill">0x06</span> for SHA3-256 vs <span class="badge-pill">0x01</span> in original Keccak). Consequently, Ethereum's Keccak-256 produces completely distinct hash digests from NIST SHA3-256.
       </div>
 
       <h2>4. Multi-Primitive Security Trade-Offs</h2>
       <ul>
-        <li><strong>Usability vs Key Management:</strong> Humans cannot reliably remember 256-bit raw hex keys. BIP-39 and BIP-44 allow a single mnemonic phrase to manage an entire account tree.</li>
-        <li><strong>Authentication vs Storage:</strong> Digital signatures require public keys with elliptic group structures, but storing 64 bytes per account would bloat the Ethereum state trie. Keccak-256 compresses this to 20 bytes, saving 68% of storage.</li>
-        <li><strong>Fault Tolerance:</strong> Blockchain transactions are irreversible. EIP-55 introduces client-side error detection without requiring additional byte overhead on-chain.</li>
+        <li><strong>Usability vs Key Management:</strong> Humans cannot reliably memorize raw 256-bit binary keys. BIP-39 and BIP-44 allow a single mnemonic phrase to manage an entire portfolio safely.</li>
+        <li><strong>Authentication vs Storage Footprint:</strong> Signatures require public keys with elliptic group structures ($Q = kG$), but storing 64 bytes per account would bloat Ethereum's state trie. Keccak-256 compresses this to 20 bytes, saving 68% storage.</li>
+        <li><strong>Fault Tolerance:</strong> Blockchain state changes are irreversible. EIP-55 introduces client-side error detection without requiring additional byte overhead on-chain.</li>
       </ul>
 
       <h2>5. Statistical Analysis & Security Bounds</h2>
       <ul>
-        <li><strong>Strict Avalanche Criterion (SAC):</strong> The outputs of HMAC-SHA512 and Keccak-256 exhibit independent bit-flip probabilities (P &approx; 0.5), ensuring pseudo-random output distributions across the derived keys.</li>
-        <li><strong>Birthday Paradox & Collision Resistance:</strong> Truncating Keccak-256 to 160 bits yields a collision resistance bound of 2^80 operations. In distributed ledger architecture, 2^80 operations remains computationally unfeasible while saving storage.</li>
-        <li><strong>EIP-55 Typo Detection Reliability:</strong> In an address with m alphabetic characters, each character acts as an independent binomial trial. For an address containing 15 letters:
+        <li><strong>Strict Avalanche Criterion (SAC):</strong> Outputs of HMAC-SHA512 and Keccak-256 exhibit independent bit-flip probabilities ($P \approx 0.5$), ensuring pseudo-random output distributions across all derived keys.</li>
+        <li><strong>Birthday Paradox & Collision Resistance:</strong> Truncating Keccak-256 to 160 bits lowers theoretical collision resistance to $2^{80}$ operations. In distributed ledger architecture, $2^{80}$ remains computationally unfeasible while minimizing state size.</li>
+        <li><strong>EIP-55 Typo Detection Reliability:</strong> In an address with $m$ alphabetic characters, each character acts as an independent binomial trial. For an address containing 15 letters:
           <div class="pipeline-box" style="margin-top:10px;">P(undetected typo) &approx; 2^(-15) &approx; 0.003% &implies; 99.997% Error Detection Rate</div>
         </li>
       </ul>
